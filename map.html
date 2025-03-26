@@ -18,18 +18,21 @@
 
       function updateLayers() {
         var url = new URL(window.location.href);
-        var geozone = url.searchParams.get("geozone") === "yes";
-        var condition = url.searchParams.get("condition") === "yes";
-        var general = url.searchParams.get("general") === "yes";
-        var specific = url.searchParams.get("specific") === "yes";
+        var geozone = url.searchParams.get("geozone") === "true";
+        var condition = url.searchParams.get("condition") === "true";
+        var general = url.searchParams.get("general") === "true";
+        var specific = url.searchParams.get("specific") === "true";
+        var lat = url.searchParams.get("lat");
+        var lon = url.searchParams.get("lon");
         map.removeAll();
         if (geozone) map.add(geozoneLayer);
         if (condition) map.add(conditionLayer);
         if (general) map.add(generalTimeLayer);
         if (specific) map.add(specificTimeLayer);
+        if (lat && lon) view.center = [parseFloat(lon), parseFloat(lat)];
       }
       updateLayers();
-      setInterval(updateLayers, 1000); // Checks every second
+      setInterval(updateLayers, 1000);
     });
   </script>
 </body>
