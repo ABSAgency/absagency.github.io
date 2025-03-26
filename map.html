@@ -1,0 +1,22 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.26/"></script>
+  <style> html, body, #map { height: 100%; width: 100%; margin: 0; padding: 0; } </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    require(["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer"], 
+    function(Map, MapView, FeatureLayer) {
+      var map = new Map({ basemap: "topo-vector" });
+      var view = new MapView({ container: "map", map: map, zoom: 10, center: [-118.2437, 34.0522] });
+      var geozoneLayer = new FeatureLayer({ url: "https://services3.arcgis.com/om3vWi08kAyoBbj3/arcgis/rest/services/Geozone_Download_Prod/FeatureServer/0" });
+      var conditionLayer = new FeatureLayer({ url: "https://services3.arcgis.com/om3vWi08kAyoBbj3/arcgis/rest/services/Condition_Download_Prod/FeatureServer/0" });
+      var generalTimeLayer = new FeatureLayer({ url: "https://services3.arcgis.com/om3vWi08kAyoBbj3/arcgis/rest/services/General_Time_Download_Prod/FeatureServer/0" });
+      var specificTimeLayer = new FeatureLayer({ url: "https://services3.arcgis.com/om3vWi08kAyoBbj3/arcgis/rest/services/Specific_Time_Download_Prod/FeatureServer/0" });
+      map.add(geozoneLayer); // Start with just Geozone visible
+    });
+  </script>
+</body>
+</html>
