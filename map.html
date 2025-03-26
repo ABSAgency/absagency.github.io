@@ -15,7 +15,21 @@
       var conditionLayer = new FeatureLayer({ url: "https://services3.arcgis.com/om3vWi08kAyoBbj3/arcgis/rest/services/Condition_Download_Prod/FeatureServer/0" });
       var generalTimeLayer = new FeatureLayer({ url: "https://services3.arcgis.com/om3vWi08kAyoBbj3/arcgis/rest/services/General_Time_Download_Prod/FeatureServer/0" });
       var specificTimeLayer = new FeatureLayer({ url: "https://services3.arcgis.com/om3vWi08kAyoBbj3/arcgis/rest/services/Specific_Time_Download_Prod/FeatureServer/0" });
-      map.add(geozoneLayer); // Start with just Geozone visible
+
+      function updateLayers() {
+        var url = new URL(window.location.href);
+        var geozone = url.searchParams.get("geozone") === "yes";
+        var condition = url.searchParams.get("condition") === "yes";
+        var general = url.searchParams.get("general") === "yes";
+        var specific = url.searchParams.get("specific") === "yes";
+        map.removeAll();
+        if (geozone) map.add(geozoneLayer);
+        if (condition) map.add(conditionLayer);
+        if (general) map.add(generalTimeLayer);
+        if (specific) map.add(specificTimeLayer);
+      }
+      updateLayers();
+      setInterval(updateLayers, 1000); // Checks every second
     });
   </script>
 </body>
